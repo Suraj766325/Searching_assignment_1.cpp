@@ -72,41 +72,44 @@ int main()
 using namespace std;
 int countt(vector<vector<int>>&v,int j)
 {
-    int count=0,l=0,r=v[0].size()-1,mid,x;
+    int n=v[j].size(),l=0,r=n-1,mid;
     bool flag=false;
     while(l<=r)
     {
         mid=(l+r)/2;
-        if(1==v[j][mid]){
-        flag=true;
-         break;
+        if(1==v[j][mid])
+        {
+            flag=true;
+            break;
         }
-        else          l=mid+1;
+        else
+            l=mid+1;
     }
-    //min index of 1
-    if(flag==true)
-    {
-    while(mid>=0 && 1==v[j][mid])
-    mid--;
-    count=v[0].size()-mid;
+    if(flag==true){
+        //min index of 1
+        while(mid>=0 && 1==v[j][mid])
+        mid--;
+        return n-1-mid;
     }
-    else
-    {
-        count=0;
-    }
-    return count;
+    else return 0;
 }
 int main()
 {
-    vector<vector<int>>v={{0,0,1,1},{1,1,1,1},{0,0,0,0}};
-    int m=INT_MIN,j;
-    for(j=0;j<v.size();j++)
+    vector<vector<int>>v={{0,0,1,1},{1,1,1,1},{0,0,0,0},{1,1,1,1,1,1}};
+    int n=v.size(),i,m=INT_MIN,x,count,l;
+    for(i=0;i<n;i++)
     {
-        m=max(m,countt(v,j));
+        count=countt(v,i);
+        if(count>m)
+        {
+            m=count;
+            x=i;
+         
+        }
     }
-    cout<<m;
+    cout<<"row having maximum 1's = "<<x+1<<endl;
+    cout<<"max 1's = "<<m;
 }
-
 
 
 //Q4) Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n]inclusive in sorted order.There is only one repeated number in nums, return this repeated number.
